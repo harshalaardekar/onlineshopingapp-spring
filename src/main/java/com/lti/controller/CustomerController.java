@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.CustomerLoginDto;
 import com.lti.dto.RemoveCustomerDto;
-import com.lti.dto.UpdateCustomer;
+import com.lti.dto.UpdatePassword;
 import com.lti.dto.ViewAddressesDto;
 import com.lti.entity.Customer;
 import com.lti.entity.CustomerAddress;
@@ -29,8 +30,8 @@ public class CustomerController {
 	CustomerService customerService;
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public String customerSignup(@RequestBody Customer customer) {
-		String message = customerService.customerSignup(customer);
+	public boolean customerSignup(@RequestBody Customer customer) {
+		boolean message = customerService.customerSignup(customer);
 		return message;
 	}
 
@@ -40,9 +41,14 @@ public class CustomerController {
 		return res;
 	}
 
-	@PutMapping(value = "/update")
-	public UpdateCustomer updateCustomerProfile(@RequestBody Customer customer) {
-		return customerService.updateCustomerProfile(customer);
+	@GetMapping("/viewProfile/{customerId}")
+	public Customer viewProfile(@PathVariable int customerId) {
+		return customerService.viewProfile(customerId);
+	}
+	
+	@PutMapping(value = "/updatePass")
+	public boolean updatePassword(@RequestBody UpdatePassword up) {
+		return customerService.updatePassword(up);
 	}
 	
 //	@RequestMapping(value = "/address", method = RequestMethod.POST)

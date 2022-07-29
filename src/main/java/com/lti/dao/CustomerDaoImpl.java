@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.lti.dto.UpdatePassword;
 import com.lti.entity.Customer;
 import com.lti.entity.CustomerAddress;
 import com.lti.entity.Retailer;
@@ -42,6 +43,28 @@ public class CustomerDaoImpl implements CustomerDao {
 		return true;
 	}
 
+	
+	public Customer viewCustomerDetails(int customerID) {
+		return em.find(Customer.class, customerID);
+	}
+	
+	public Customer searchByCustomerId(int customerId) {
+		return em.find(Customer.class, customerId);
+	}
+	
+	@Transactional
+	@Override
+	public Boolean updatePassword(UpdatePassword up) {
+		Customer c=searchByCustomerId(up.getId());
+		if(up.getOldPassword().equals(c.getPassword())) {
+			c.setPassword(up.getNewPassword());
+			em.merge(c);
+			return true;
+		}
+		return false;
+	}
+	
+	
 	// Tested
 	@Transactional
 	public CustomerAddress addOrUpdateCustomerAddress(CustomerAddress address,int customerId) {
@@ -82,9 +105,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			return true;
 	}
 
-	public Customer searchByCustomerId(int customerId) {
-		return em.find(Customer.class, customerId);
-	}
+	
 
 	@Override
 	public List<CustomerAddress> fectchAllAddressesToWhichACustomerBelongs(int addressId) {
@@ -94,5 +115,6 @@ public class CustomerDaoImpl implements CustomerDao {
 		List<CustomerAddress> addresses = customer.getAddress();
 		return addresses;
 	}
+
 	
 }
