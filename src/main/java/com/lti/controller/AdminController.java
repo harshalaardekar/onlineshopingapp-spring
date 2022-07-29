@@ -28,9 +28,9 @@ public class AdminController {
 	
 //	http://localhost:8181/OnlineShoppingWebApp/myapp/admin/login
 	@PostMapping("/login")
-	public String login(@RequestBody Admin login) {
+	public boolean login(@RequestBody Admin login) {
 		boolean res = adminService.validateLogin(login.getUsername(), login.getPassword());
-		return res?"Login Successful":"Invalid Credentials";
+		return res;
 	}
 	
 //	http://localhost:8181/OnlineShoppingWebApp/myapp/admin/retailerRequests

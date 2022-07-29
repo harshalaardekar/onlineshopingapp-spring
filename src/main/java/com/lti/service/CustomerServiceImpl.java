@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lti.dao.CustomerDao;
-import com.lti.dto.UpdateCustomer;
+import com.lti.dto.UpdatePassword;
 import com.lti.entity.Customer;
 import com.lti.entity.CustomerAddress;
 import com.lti.exception.CustomerIdMissingException;
@@ -29,41 +29,52 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public String customerSignup(Customer customer) {
+	public boolean customerSignup(Customer customer) {
 		if (custDao.customerExist(customer.getEmailId())) {
-			return "Email Id Already Exist";
+			return false;
 		} else {
 			try {
 				Customer customer2 = custDao.addOrUpdateCustomer(customer);
-				return "Sign up successful. Your userid is:" + customer2.getCustomerId();
+				return true;
 			} catch (Exception e) {
 				e.printStackTrace();
-				return "Unexpected error occured. Signup failed";
+				return false;
 			}
 		}
 	}
 
 	@Override
-	public UpdateCustomer updateCustomerProfile(Customer customer) {
-		UpdateCustomer updateCustomer = new UpdateCustomer();
-		try {
-			if (customer.getCustomerId() == 0) {
-				throw new CustomerIdMissingException("Please mention your customer id");
-			} else if (custDao.searchByCustomerId(customer.getCustomerId()) == null) {
-				throw new CustomerNotFoundException("Customer not found");
-			} else {
-				Customer customer2 = custDao.addOrUpdateCustomer(customer);
-				// "User Id: "+user2.getUserId()+"\n User Name"+
-				// user2.getUserName()+"\nEmail"+user2.getEmail();
-				updateCustomer.setMessage("Profile updated");
-				updateCustomer.setUser(customer2);
-				return updateCustomer;
-			}
-		} catch (Exception e) {
-			updateCustomer.setMessage(e.getMessage());
-			return updateCustomer;
-		}
+	public Customer viewProfile(int customerId) {
+		return custDao.viewCustomerDetails(customerId);
 	}
+	
+	@Override
+	public boolean updatePassword(UpdatePassword up) {
+		// TODO Auto-generated method stub
+		return custDao.updatePassword(up);
+	}
+	
+//	@Override
+//	public UpdatePassword updateCustomerProfile(Customer customer) {
+//		UpdatePassword updateCustomer = new UpdatePassword();
+//		try {
+//			if (customer.getCustomerId() == 0) {
+//				throw new CustomerIdMissingException("Please mention your customer id");
+//			} else if (custDao.searchByCustomerId(customer.getCustomerId()) == null) {
+//				throw new CustomerNotFoundException("Customer not found");
+//			} else {
+//				Customer customer2 = custDao.addOrUpdateCustomer(customer);
+//				// "User Id: "+user2.getUserId()+"\n User Name"+
+//				// user2.getUserName()+"\nEmail"+user2.getEmail();
+//				updateCustomer.setMessage("Profile updated");
+//				updateCustomer.setUser(customer2);
+//				return updateCustomer;
+//			}
+//		} catch (Exception e) {
+//			updateCustomer.setMessage(e.getMessage());
+//			return updateCustomer;
+//		}
+//	}
 
 //	@Override
 //	public String customerAddAddress(CustomerAddress address) {
@@ -91,5 +102,9 @@ public class CustomerServiceImpl implements CustomerService {
 	public List<CustomerAddress> viewAllAddreses(int addressId) {
 		return custDao.fectchAllAddressesToWhichACustomerBelongs(addressId);
 	}
+
+	
+
+	
 
 }
