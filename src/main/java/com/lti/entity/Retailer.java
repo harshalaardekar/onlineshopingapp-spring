@@ -14,8 +14,8 @@ import javax.persistence.Table;
 public class Retailer {
 	
 	@Id
-	@SequenceGenerator(name = "ret_seq",initialValue = 1001,allocationSize = 1)
-	@GeneratedValue(generator = "ret_seq",strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "retailerseq",initialValue = 1001,allocationSize = 1)
+	@GeneratedValue(generator = "retailerseq",strategy = GenerationType.SEQUENCE)
 	int retailerId;
 	String retailerName;
 	String password;

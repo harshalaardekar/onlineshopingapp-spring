@@ -18,7 +18,10 @@ public class RetailerServiceImpl implements RetailerService {
 		
 		Retailer retailer = dao.login(retailerId, password);
 		if(retailer!=null) {
-			return true;
+			if(retailer.isApproved())
+				return true;
+			else
+				return false;
 		}
 		else {
 			return false;

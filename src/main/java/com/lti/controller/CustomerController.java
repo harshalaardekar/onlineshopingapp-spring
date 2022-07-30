@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.CustomerLoginDto;
-import com.lti.dto.RemoveCustomerDto;
 import com.lti.dto.UpdatePassword;
-import com.lti.dto.ViewAddressesDto;
+import com.lti.dto.addAddressDto;
 import com.lti.entity.Customer;
 import com.lti.entity.CustomerAddress;
 import com.lti.service.CustomerService;
@@ -41,9 +40,14 @@ public class CustomerController {
 		return res;
 	}
 
-	@GetMapping("/viewProfile/{customerId}")
-	public Customer viewProfile(@PathVariable int customerId) {
-		return customerService.viewProfile(customerId);
+//	@GetMapping("/viewProfile/{customerId}")
+//	public Customer viewProfile(@PathVariable int customerId) {
+//		return customerService.viewProfile(customerId);
+//	}
+//	
+	@GetMapping("/viewProfileDetails/{emailID}")
+	public Customer viewProfileDetails(@PathVariable String emailID) {
+		return customerService.viewDetails(emailID);
 	}
 	
 	@PutMapping(value = "/updatePass")
@@ -51,21 +55,34 @@ public class CustomerController {
 		return customerService.updatePassword(up);
 	}
 	
-//	@RequestMapping(value = "/address", method = RequestMethod.POST)
-//	public String customerAddAddress(@RequestBody CustomerAddress address) {
-//		String message = customerService.customerAddAddress(address);
-//		return message;
+	@RequestMapping(value = "/addAddress", method = RequestMethod.POST)
+	public boolean addAddress(@RequestBody addAddressDto address) {
+		boolean res = customerService.customerAddAddress(address);
+		return res;
+	}
+	
+	@PutMapping(value = "/updateAddress")
+	public boolean updateAddress(@RequestBody CustomerAddress address) {
+		return customerService.updateAddress(address);
+	}
+	
+	@GetMapping("/viewallAddress/{customerId}")
+	public List<CustomerAddress> viewAddress(@PathVariable int customerId){
+		return customerService.viewAllAddreses(customerId);
+	}
+	
+//	@GetMapping("/removeAddress/{addressId}")
+//	public boolean removeAddress(@PathVariable int addressId){
+//		return customerService.removeCustomerAddress(addressId);
 //	}
 	
-	@RequestMapping(value = "/removeaddr", method = RequestMethod.DELETE)
-	public String removeCustomerAddress(@RequestBody RemoveCustomerDto removeData) {
-		String message = customerService.removeCustomerAddress(removeData.getAddressId());
-		return message;
+	
+	@RequestMapping(value = "/removeAddr", method = RequestMethod.DELETE)
+	public boolean removeCustomerAddress(@RequestBody int addressId) {
+		boolean res = customerService.removeCustomerAddress(addressId);
+		return res;
 	}
 	
-	@GetMapping("/viewall")
-	public List<CustomerAddress> viewAllAddreses(@RequestBody ViewAddressesDto viewData){
-		return customerService.viewAllAddreses(viewData.getAddressId());
-	}
+
 
 }

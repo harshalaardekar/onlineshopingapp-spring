@@ -15,23 +15,31 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "tbl_custaddress")
 public class CustomerAddress {
 	@Id
-	@SequenceGenerator(name = "add_seq", initialValue = 501, allocationSize = 1)
-	@GeneratedValue(generator = "add_seq", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "address_seq", initialValue = 501, allocationSize = 1)
+	@GeneratedValue(generator = "address_seq", strategy = GenerationType.SEQUENCE)
 	int addressId;
 	String houseNo;
-	String building;
+	String street;
 	String city;
 	String state;
 	String pinCode;
 	String country;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "customerId")
 	@JsonIgnore
 	Customer customer;
 
 	public int getAddressId() {
 		return addressId;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
 	}
 
 	public void setAddressId(int addressId) {
@@ -44,14 +52,6 @@ public class CustomerAddress {
 
 	public void setHouseNo(String houseNo) {
 		this.houseNo = houseNo;
-	}
-
-	public String getBuilding() {
-		return building;
-	}
-
-	public void setBuilding(String building) {
-		this.building = building;
 	}
 
 	public String getCity() {
@@ -94,5 +94,4 @@ public class CustomerAddress {
 		this.customer = customer;
 	}
 
-	
 }

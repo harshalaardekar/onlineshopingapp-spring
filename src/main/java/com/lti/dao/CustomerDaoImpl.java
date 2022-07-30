@@ -2,6 +2,7 @@ package com.lti.dao;
 
 import java.util.List;
 
+import javax.mail.Address;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -42,7 +43,18 @@ public class CustomerDaoImpl implements CustomerDao {
 		}
 		return true;
 	}
+	
+	public boolean customerExist(String emailId) {
+		String jpql = "select a from Customer a where a.emailId=:email";
+		TypedQuery<Customer> query = em.createQuery(jpql, Customer.class);
+		query.setParameter("email", emailId);
+		List<Customer> c = query.getResultList();
 
+		if (c.isEmpty())
+			return false;
+		else
+			return true;
+	}
 	
 	public Customer viewCustomerDetails(int customerID) {
 		return em.find(Customer.class, customerID);
@@ -64,57 +76,45 @@ public class CustomerDaoImpl implements CustomerDao {
 		return false;
 	}
 	
+	// Tested
+		public CustomerAddress searchByAddressId(int addressId) {
+			return em.find(CustomerAddress.class, addressId);
+		}
 	
-	// Tested
+		@Transactional
+		@Override
+		public CustomerAddress addOrUpdateCustomerAddress(CustomerAddress address) {
+			return em.merge(address);
+		}
+
+
+		
 	@Transactional
-	public CustomerAddress addOrUpdateCustomerAddress(CustomerAddress address,int customerId) {
-		Customer customer = new Customer();
-		customer= searchByCustomerId(customerId);
-	
-		CustomerAddress addressPersisted = em.merge(address);
-		return addressPersisted;
-	}
-
-	// Tested
-	public CustomerAddress searchByAddressId(int addressId) {
-		return em.find(CustomerAddress.class, addressId);
+	@Override
+	public void removeAddressById(int addressId) {
+		CustomerAddress a = searchByAddressId(addressId);
+		em.remove(a);
 	}
 
 	@Transactional
-	public String removeAddressById(int addressId) {
-		CustomerAddress address = searchByAddressId(addressId);
-		em.remove(address);
-		String message = "Address deleted";
-		return message;
+	@Override
+	public CustomerAddress updateAddress(CustomerAddress address) {
+		
+		return em.merge(address);
 	}
 
-	// Tested
-	public List<CustomerAddress> viewAllAddress() {
-		return em.createQuery("select addr from CustomerAddress addr", CustomerAddress.class).getResultList();
-	}
-
-	public boolean customerExist(String emailId) {
+	@Override
+	public Customer viewCustomerDetails(String emailId) {
+		// TODO Auto-generated method stub
 		String jpql = "select a from Customer a where a.emailId=:email";
 		TypedQuery<Customer> query = em.createQuery(jpql, Customer.class);
 		query.setParameter("email", emailId);
-		List<Customer> c = query.getResultList();
-
-		if (c.isEmpty())
-			return false;
-		else
-			return true;
+		Customer c = query.getSingleResult();
+		return c;
 	}
-
 	
 
-	@Override
-	public List<CustomerAddress> fectchAllAddressesToWhichACustomerBelongs(int addressId) {
-		CustomerAddress address;
-		address = searchByAddressId(addressId);
-		Customer customer = address.getCustomer();
-		List<CustomerAddress> addresses = customer.getAddress();
-		return addresses;
-	}
 
+	
 	
 }
