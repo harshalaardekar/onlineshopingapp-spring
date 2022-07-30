@@ -41,6 +41,7 @@ public class RetailerDaoImpl implements RetailerDao {
 		Retailer retailer=null;
 		try {
 			retailer = query.getSingleResult();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
