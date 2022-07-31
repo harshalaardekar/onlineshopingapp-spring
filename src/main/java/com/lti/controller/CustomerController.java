@@ -77,12 +77,17 @@ public class CustomerController {
 //	}
 	
 	
-	@RequestMapping(value = "/removeAddr", method = RequestMethod.DELETE)
-	public boolean removeCustomerAddress(@RequestBody int addressId) {
+	@RequestMapping(value = "/removeAddr/{addressId}", method = RequestMethod.DELETE)
+	public boolean removeCustomerAddress(@PathVariable int addressId) {
 		boolean res = customerService.removeCustomerAddress(addressId);
 		return res;
 	}
 	
-
+//	@GetMapping(value = "/removeAddr/{addressId}")
+//	public boolean removeCustomerAddress(@PathVariable int addressId) {
+//		boolean res = customerService.removeCustomerAddress(addressId);
+//		return res;
+//	}
+//
 
 }
