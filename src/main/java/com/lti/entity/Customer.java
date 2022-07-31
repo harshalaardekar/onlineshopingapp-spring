@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -27,9 +28,9 @@ public class Customer {
 	@OneToMany(mappedBy = "customer",cascade = CascadeType.ALL,fetch= FetchType.EAGER)
 	List<CustomerAddress> address;
 	
-//	@OneToOne(mappedBy = "customer")
-//	Cart cart;
-//	
+	@OneToOne(mappedBy = "customer")
+	Cart cart;
+	
 //	@OneToOne(mappedBy = "customer")
 //	Wishlist wishlist;
 
@@ -81,13 +82,13 @@ public class Customer {
 		this.address = address;
 	}
 
-//	public Cart getCart() {
-//		return cart;
-//	}
-//
-//	public void setCart(Cart cart) {
-//		this.cart = cart;
-//	}
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
 //
 //	public Wishlist getWishlist() {
 //		return wishlist;

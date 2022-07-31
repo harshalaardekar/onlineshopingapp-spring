@@ -5,6 +5,7 @@ import java.util.List;
 import javax.mail.Address;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -92,8 +93,13 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Transactional
 	@Override
 	public void removeAddressById(int addressId) {
-		CustomerAddress a = searchByAddressId(addressId);
-		em.remove(a);
+//		CustomerAddress a = searchByAddressId(addressId);
+//		em.remove(a);
+		
+		 String jpql="delete from CustomerAddress c where addressId=:addressId";
+	        Query query = em.createQuery(jpql);
+	        query.setParameter("addressId", addressId).executeUpdate();
+	        System.out.println("deleted");
 	}
 
 	@Transactional
