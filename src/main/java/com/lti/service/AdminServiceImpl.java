@@ -66,6 +66,17 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 	
+	public boolean removeRetailer(int retailerId) {
+        try {
+            adminDao.removeRetailer(retailerId);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+	
 	
 
 }

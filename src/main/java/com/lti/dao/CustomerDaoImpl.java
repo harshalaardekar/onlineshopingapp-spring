@@ -12,6 +12,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.lti.dto.UpdatePassword;
+import com.lti.entity.Cart;
+import com.lti.entity.CartItems;
 import com.lti.entity.Customer;
 import com.lti.entity.CustomerAddress;
 import com.lti.entity.Retailer;
@@ -26,6 +28,12 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Transactional
 	public Customer addOrUpdateCustomer(Customer customer) {
 		Customer customerPersisted = em.merge(customer);
+		if(customerPersisted!=null) {
+			//cart method
+			Cart c =new Cart();
+			c.setCustomer(customerPersisted);
+			em.merge(c);
+		}
 		return customerPersisted;
 	}
 

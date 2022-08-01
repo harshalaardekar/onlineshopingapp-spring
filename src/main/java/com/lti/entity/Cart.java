@@ -18,8 +18,8 @@ import javax.persistence.Table;
 public class Cart {
 	
 	@Id
-	@SequenceGenerator(name = "cart_seq", initialValue = 1000, allocationSize = 1)
-	@GeneratedValue(generator = "cart_seq", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "c_seq", initialValue = 1000, allocationSize = 1)
+	@GeneratedValue(generator = "c_seq", strategy = GenerationType.SEQUENCE)
 	int cartId;
 	
 	@OneToOne

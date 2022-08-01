@@ -12,5 +12,7 @@ public interface RetailerDao {
 	Retailer login(int retailerId , String password);
 	boolean retailerExist(String email);
 	
+	Retailer searchRetailerById(int retailerId);
+	
 	
 }

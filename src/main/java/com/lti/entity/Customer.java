@@ -17,8 +17,8 @@ import javax.persistence.Table;
 @Table(name = "tbl_customer")
 public class Customer {
 	@Id
-	@SequenceGenerator(name = "customer_seq", initialValue = 1000, allocationSize = 1)
-	@GeneratedValue(generator = "customer_seq", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "cu_seq", initialValue = 1000, allocationSize = 1)
+	@GeneratedValue(generator = "cu_seq", strategy = GenerationType.SEQUENCE)
  	int customerId;
 	String customerName;
 	String emailId;

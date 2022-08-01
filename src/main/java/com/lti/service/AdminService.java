@@ -19,4 +19,6 @@ public interface AdminService {
 	List<Category> viewAllCategories();
 	List<ProductType> viewPtypeByCategory(int categoryId);
 	
+	
+	boolean removeRetailer(int retailerId);
 }

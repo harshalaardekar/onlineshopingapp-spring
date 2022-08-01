@@ -48,12 +48,12 @@ public class AdminDaoTest {
 
 	}
 	
-	@Test
-	public void viewRetailerDetails() {
-		Retailer r=dao.viewRetailerDetails(1006);
-		assertNotNull(r);
-		System.out.println(r.getRetailerdocs().toString());
-	}
+//	@Test
+//	public void viewRetailerDetails() {
+//		Retailer r=dao.viewRetailerDetails(1006);
+//		assertNotNull(r);
+//		System.out.println(r.getRetailerdocs().toString());
+//	}
 
 	@Test
 	public void viewRetailers() {
