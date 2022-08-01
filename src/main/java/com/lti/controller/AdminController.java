@@ -66,6 +66,12 @@ public class AdminController {
 		return adminService.viewPtypeByCategory(categoryId);
 	}
 	
+	  @RequestMapping(value="/removeRetailer/{retailerId}",method=RequestMethod.DELETE)
+	    public boolean removeRetailer(@PathVariable int retailerId) {
+	        boolean res= adminService.removeRetailer(retailerId);
+	        return res;
+	    }
+	
 	
 	
 	
