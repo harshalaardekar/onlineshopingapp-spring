@@ -32,7 +32,6 @@ public class RetailerDaoImpl implements RetailerDao {
 	
 	
 	public Retailer login(int retailerId, String password) {
-		
 		String jpql="select a from Retailer a where a.retailerId=:rid and a.password=:pwd";
 		TypedQuery<Retailer> query=em.createQuery(jpql,Retailer.class);
 		query.setParameter("rid",retailerId);
@@ -64,6 +63,11 @@ public class RetailerDaoImpl implements RetailerDao {
 		// TODO Auto-generated method stub
 		return em.find(Retailer.class, retailerId);
 	}
+	
+	@Override
+    public Retailer searchRetailerById(int retailerId) {
+        return em.find(Retailer.class, retailerId);
+    }
 	
 	
 }

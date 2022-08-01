@@ -8,7 +8,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tbl_producttype")
+@Table(name = "producttype")
 public class ProductType {
 	
 	@Id

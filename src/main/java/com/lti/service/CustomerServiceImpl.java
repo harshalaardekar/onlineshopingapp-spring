@@ -38,6 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
 		} else {
 			try {
 				Customer customer2 = custDao.addOrUpdateCustomer(customer);
+				
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();

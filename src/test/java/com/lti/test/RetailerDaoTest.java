@@ -72,22 +72,22 @@ public class RetailerDaoTest {
 		}
 	}
 	
-	@Test
-	public void updateProfileTest() {
-		Retailer r = new Retailer();
-		r.setRetailerId(1006);
-		r.setRetailerName("OPPO");
-		r.setPassword("123");
-		r.setEmail("oppo1@gmail.com");
-		r.setPhoneNo("8765679875");
-		r.setGstnNo("gstn9820");
-		r.setApproved(false);
-		r.setRetailerdocs(r.getRetailerdocs());
-
-		Retailer retailer= dao.addOrUpdate(r);
-		assertNotNull(retailer);
-	}
-	
+//	@Test
+//	public void updateProfileTest() {
+//		Retailer r = new Retailer();
+//		r.setRetailerId(1006);
+//		r.setRetailerName("OPPO");
+//		r.setPassword("123");
+//		r.setEmail("oppo1@gmail.com");
+//		r.setPhoneNo("8765679875");
+//		r.setGstnNo("gstn9820");
+//		r.setApproved(false);
+//		r.setRetailerdocs(r.getRetailerdocs());
+//
+//		Retailer retailer= dao.addOrUpdate(r);
+//		assertNotNull(retailer);
+//	}
+//	
 	@Test
 	public void viewProfileTest() {
 		Retailer r = dao.viewProfile(1025);
